@@ -33,5 +33,43 @@ public class Main {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+        System.out.println("\n------------------------------------------------\n");
+
+        try{
+            //Create a MemberDAO instance
+            MemberDAO memberDAO = new MemberDAO();
+
+            //Add a new member
+            Member member1 = new Member(0, "Nethmini", "nw@gmail.com");
+
+            memberDAO.addMember(member1);
+            System.out.println("Member added successfully.");
+
+            //Get all members
+            List<Member> members = memberDAO.getAllMembers();
+            System.out.println("List of members:");
+
+            for (Member member: members){
+                System.out.println(member);
+            }
+
+            //Update a member
+            if(!members.isEmpty()){
+                Member memberToUpdate = members.get(0);
+                memberToUpdate.setName("Updated Name");
+                memberToUpdate.setEmail("updated. email@example.com");
+                memberDAO.updateMember(memberToUpdate);
+                System.out.println("Member updated successfully.");
+            }
+
+            //Delete a member
+            if(!members.isEmpty()){
+                memberDAO.deleteMember(members.get(0).getId());
+                System.out.println("Member deleted successfully.");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
